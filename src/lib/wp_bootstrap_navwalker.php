@@ -427,10 +427,6 @@ if (!class_exists('WP_Bootstrap_Navwalker')) {
 					// Test for .disabled or .visually-hidden classes.
 					$linkmod_classes[] = $class;
 					unset($classes[$key]);
-				} elseif (preg_match('/^fa-(\S*)?|^fa(s|r|l|b)?(\s?)?$/i', $class) || preg_match('/^glyphicon-(\S*)?|^glyphicon(\s?)$/i', $class)) {
-					// Font Awesome.
-					$icon_classes[] = $class;
-					unset($classes[$key]);
 				}
 			}
 

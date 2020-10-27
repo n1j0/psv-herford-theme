@@ -317,7 +317,7 @@ function get_breadcrumb()
 	echo $html;
 }
 
-function bootstrap_pagination(\WP_Query $wp_query = null, $params = [])
+function bootstrap_pagination($wp_query = null, $params = [])
 {
 	if (null === $wp_query) {
 		global $wp_query;
@@ -369,10 +369,6 @@ function bootstrap_search_form($args = array())
 	$args = wp_parse_args($args, $defaults);
 
 	$args = apply_filters('search_form_args', $args);
-
-	$format = current_theme_supports('html5', 'search-form') ? 'html5' : 'xhtml';
-
-	$format = apply_filters('search_form_format', $format);
 
 	$search_form_template = locate_template('searchform.php');
 	if ('' != $search_form_template) {

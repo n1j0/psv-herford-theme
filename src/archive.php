@@ -10,13 +10,13 @@
 			<?php
 			if (have_posts()) :
 				?>
-				<div class="grid-posts">
+				<masonry-layout cols="auto" gap="20">
 				<?php
 				while (have_posts()) : the_post();
 					get_template_part('content', get_post_format());
 				endwhile;
-				?></div><?php
-				echo bootstrap_pagination();
+				?></masonry-layout><?php
+				bootstrap_pagination();
 			else :
 				get_template_part('content', 'none');
 			endif;
