@@ -1,0 +1,26 @@
+figure.wp-block-table {
+
+	@extend .table-responsive;
+
+	table {
+
+		@extend .table;
+		@extend .table-borderless;
+	}
+
+	&.is-style-stripes table {
+
+		@extend .table-striped;
+	}
+
+	&.is-style-regular table {
+
+		@extend .table-bordered;
+		@extend .table-hover;
+	}
+
+	thead {
+
+		@extend .table-light;
+	}
+}

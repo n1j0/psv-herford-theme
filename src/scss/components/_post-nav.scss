@@ -1,0 +1,9 @@
+.post-navigation .nav-links {
+
+	@extend .d-flex;
+	@extend .justify-content-between;
+
+	a:hover {
+		text-decoration: none;
+	}
+}

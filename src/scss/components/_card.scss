@@ -1,0 +1,16 @@
+.grid-item {
+	margin-bottom: 1.25rem;
+	transition: border-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+	&:hover {
+		border-color: $primary;
+		transform: scale(1.01);
+	}
+}
+
+.card {
+
+	.card-body img {
+		height: auto;
+	}
+}

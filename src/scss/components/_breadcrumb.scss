@@ -1,0 +1,27 @@
+.breadcrumb {
+
+	.breadcrumb-item {
+		align-items: center;
+
+		svg {
+			fill: $primary;
+			height: auto;
+			margin-right: 0.25rem;
+			margin-top: -0.25rem;
+			width: 1.3rem;
+
+			&:hover {
+				fill: $secondary;
+			}
+		}
+
+		&.active {
+			color: $black;
+
+			svg {
+				fill: $black;
+				margin-top: 0;
+			}
+		}
+	}
+}

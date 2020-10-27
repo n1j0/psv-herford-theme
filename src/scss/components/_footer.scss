@@ -1,0 +1,21 @@
+footer .container {
+
+	p {
+		border-bottom: unset;
+		color: #fff;
+		margin-bottom: 0;
+
+		&:nth-child(3) {
+			margin-top: 1.5rem;
+		}
+	}
+
+	a {
+		color: #fff;
+		transition: color 0.5s ease-in-out;
+
+		&:hover {
+			color: #cdcdcd;
+		}
+	}
+}
