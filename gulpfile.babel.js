@@ -105,7 +105,7 @@ export const cleanup = () => del(['../psv-herford-badminton/**/*'], { force: tru
 export const watchChanges = () => {
   watch(['src/scss/**/*.scss', 'src/scss/style.scss'], styles)
   watch('src/js/**/*.js', scripts)
-  watch('src/img/**/*{jpg, jpeg, png, svg, gif}', images)
+  watch('src/img/**/*.{jpg, jpeg, png, svg, gif}', images)
   watch(['src/**/*', '!src/{img,js,plugins,languages,scss}', '!src/{img,js,plugins,languages,scss}/**/*'], copy)
 }
 

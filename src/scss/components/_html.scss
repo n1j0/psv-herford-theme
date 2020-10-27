@@ -3,7 +3,14 @@ img {
   object-fit: cover;
   position: relative;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.12);
+
+  &:not(.image-404) {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+
+  &.image-404 {
+    width: 100%;
+  }
 }
 
 h1.error-not-found {
