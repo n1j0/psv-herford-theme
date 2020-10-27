@@ -1,7 +1,8 @@
 {
   "name": "psv-herford-npm",
   "version": "1.0.0",
-  "description": "",
+  "description": "theme for psv herford badminton wordpress page",
+  "repository": "git@github.com:jtpfa/psv-herford-theme.git",
   "main": "index.js",
   "scripts": {
     "dev": "gulp",
