@@ -20,7 +20,7 @@ const server = browsersync.create()
 
 export const serve = done => {
   server.init({
-    proxy: 'https://psv.badminton.test'
+    proxy: 'https://psv-herford-badminton.local'
   })
   done()
 }
