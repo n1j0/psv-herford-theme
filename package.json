@@ -12,11 +12,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
     "@babel/register": "^7.12.1",
-    "autoprefixer": "^10.0.1",
-    "babel-loader": "^8.1.0",
+    "autoprefixer": "^10.0.4",
+    "babel-loader": "^8.2.2",
     "browser-sync": "^2.26.13",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
@@ -28,13 +28,13 @@
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-wp-pot": "^2.5.0",
-    "postcss": "^8.1.4",
+    "postcss": "^8.1.14",
     "vinyl-named": "^1.1.0",
-    "webpack-stream": "^6.1.0",
-    "yargs": "^16.1.0"
+    "webpack-stream": "^6.1.1",
+    "yargs": "^16.1.1"
   },
   "dependencies": {
     "@appnest/masonry-layout": "^2.0.8",
-    "bootstrap": "^5.0.0-alpha2"
+    "bootstrap": "^5.0.0-alpha3"
   }
 }
