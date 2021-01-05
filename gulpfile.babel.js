@@ -1,5 +1,4 @@
 import autoprefixer from 'autoprefixer'
-import browsersync from 'browser-sync'
 import del from 'del'
 import { dest, parallel, series, src, watch } from 'gulp'
 import cleancss from 'gulp-clean-css'
@@ -16,15 +15,6 @@ import webpack from 'webpack-stream'
 
 const PROD = yargs.argv.prod
 
-const server = browsersync.create()
-
-export const serve = done => {
-  server.init({
-    proxy: 'https://psv-herford-badminton.local'
-  })
-  done()
-}
-
 export const styles = () => {
   return src('src/scss/style.scss')
     .pipe(gulpif(!PROD, sourcemaps.init()))
@@ -34,7 +24,6 @@ export const styles = () => {
     .pipe(gulpif(PROD, cleancss({ compatibility: 'ie11' })))
     .pipe(gulpif(!PROD, sourcemaps.write()))
     .pipe(dest('../psv-herford-badminton'))
-    .pipe(server.stream())
 }
 
 export const scripts = () => {
@@ -61,7 +50,6 @@ export const scripts = () => {
       },
     }))
     .pipe(dest('../psv-herford-badminton/js'))
-    .pipe(server.stream())
 }
 
 export const images = () => {
@@ -82,13 +70,11 @@ export const images = () => {
       }
     )))
     .pipe(dest('../psv-herford-badminton/img'))
-    .pipe(server.stream())
 }
 
 export const copy = () => {
   return src(['src/**/*', '!src/{img,js,plugins,languages,scss}', '!src/{img,js,plugins,languages,scss}/**/*'])
     .pipe(dest('../psv-herford-badminton'))
-    .pipe(server.stream())
 }
 
 export const language = () => {
@@ -109,7 +95,7 @@ export const watchChanges = () => {
   watch(['src/**/*', '!src/{img,js,plugins,languages,scss}', '!src/{img,js,plugins,languages,scss}/**/*'], copy)
 }
 
-export const dev = series(cleanup, parallel(styles, scripts, images, copy), language, serve, watchChanges)
+export const dev = series(cleanup, parallel(styles, scripts, images, copy), language, watchChanges)
 
 export const build = series(cleanup, parallel(styles, scripts, images, copy), language)
 
