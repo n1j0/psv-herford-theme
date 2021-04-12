@@ -363,7 +363,7 @@ if (!class_exists('WP_Bootstrap_Navwalker')) {
 					$fallback_output .= '>';
 				}
 				$fallback_output .= '<form role="search" method="get" class="form-inline my-2 my-lg-0 d-none d-lg-inline-flex" action="' . esc_url(home_url('/')) . '">
-			<label class="mr-sm-2">
+			<label class="me-sm-2">
 				<span class="visually-hidden visually-hidden-focusable">' . esc_attr_x('Suche nach:', 'label') . '</span>
 				<input type="search" class="form-control" placeholder="' . esc_attr_x('Suche', 'placeholder') . '" value="<?php echo get_search_query() ?>" name="s" required/>
 			</label>

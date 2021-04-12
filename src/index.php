@@ -10,7 +10,8 @@
 			</header>
 			<div class="alert alert-warning mt-3 mb-4" role="alert">
 				<h2 class="h4 alert-heading">Informationen zur aktuellen Lage</h2>
-				<p class="mb-0">Das Training findet vorerst bis einschließlich den 10.01.2021 <strong>nicht</strong> statt.</p>
+				<p class="mb-0">Das Training findet vorerst bis einschließlich den 18.04.2021 <strong>nicht</strong> statt.</p>
+                <p>Unsere Anwesenheitsliste wird digital geführt. Bitte <a class="alert-link" href="/corona">hier eintragen</a>.</p>
 			</div>
 			<?php
 			if (have_posts()) :

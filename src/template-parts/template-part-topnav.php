@@ -11,10 +11,10 @@
 			'container' => 'div',
 			'container_class' => 'collapse navbar-collapse',
 			'container_id' => 'navbarToggle',
-			'menu_class' => 'navbar-nav mr-auto mt-lg-0',
+			'menu_class' => 'navbar-nav me-auto mt-lg-0',
 			'fallback_cb' => 'WP_Bootstrap_Navwalker::fallback',
 			'items_wrap' => '<div class="nav-container px-0"><div class="container px-sm-0"><form role="search" method="get" class="form-inline my-2 my-lg-0 d-flex d-lg-none" action="' . esc_url(home_url('/')) . '">
-			<label class="mr-2 mb-0">
+			<label class="me-2 mb-0">
 				<span class="visually-hidden visually-hidden-focusable">' . esc_attr_x('Suche nach:', 'label') . '</span>
 				<input type="search" class="form-control" placeholder="' . esc_attr_x('Suche', 'placeholder') . '" value="' . get_search_query() . '" name="s" required/>
 			</label>
@@ -28,7 +28,7 @@
 		));
 		?>
 		<form role="search" method="get" class="form-inline my-2 my-lg-0 d-none d-lg-inline-flex" action="<?php esc_url(home_url('/')) ?>">
-			<label class="mr-sm-2">
+			<label class="me-sm-2">
 				<span class="visually-hidden visually-hidden-focusable"><?php echo esc_attr_x('Suche nach:', 'label') ?></span>
 				<input type="search" class="form-control" placeholder="<?php echo esc_attr_x('Suche', 'placeholder') ?>" value="<?php echo get_search_query() ?>" name="s" required/>
 			</label>

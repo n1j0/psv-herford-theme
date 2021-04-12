@@ -260,7 +260,7 @@ function get_breadcrumb()
     <path d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
 </svg>';
 
-	$html = '<ol class="breadcrumb">';
+	$html = '<ol class="breadcrumb bg-light py-2 px-3 rounded-bottom">';
 
 	if ((is_front_page()) || (is_home())) {
 		$html .= '<li class="breadcrumb-item active" aria-current="page">' . $home . 'Startseite</li>';
@@ -382,7 +382,7 @@ function bootstrap_search_form($args = array())
 			$aria_label = '';
 		}
 		$form = '<form role="search" ' . $aria_label . 'method="get" class="form-inline d-inline-flex mb-5 mb-md-0" action="' . esc_url(home_url('/')) . '">
-			<label class="mr-2 mb-0">
+			<label class="me-2 mb-0">
 				<span class="visually-hidden visually-hidden-focusable">' . _x('Suche nach:', 'label') . '</span>
 				<input type="search" class="form-control" placeholder="' . esc_attr_x('Suchbgeriff', 'placeholder') . '" value="' . get_search_query() . '" name="s" required/>
 			</label>
