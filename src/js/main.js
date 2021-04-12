@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime'
 import '@appnest/masonry-layout'
 
 import './components/bootstrap'

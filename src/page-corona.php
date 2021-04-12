@@ -85,6 +85,11 @@ if (isset($_POST['submitted'])) {
             erneut.
         <p>
     <?php } ?>
+        <h2 class="h4">
+            <?php
+            setlocale(LC_TIME, "de_DE");
+            echo utf8_encode(strftime("%A")) . ", " . date("d.m.Y");
+            ?></h2>
         <form class="row needs-validation mb-5 g-3" id="coronaForm"
               method="post" enctype="multipart/form-data" novalidate>
             <div class="col-md-6">
@@ -151,7 +156,7 @@ if (isset($_POST['submitted'])) {
             </div>
 
             <input type='hidden' name='submitted' id='submitted' value='true'/>
-    </form>
+        </form>
     <?php endwhile; ?>
     <?php else : ?>
         <?php get_template_part('content', 'none'); ?>
