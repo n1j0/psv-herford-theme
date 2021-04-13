@@ -2,27 +2,93 @@
 add_action('rest_api_init', 'sign_in');
 add_action('rest_api_init', 'sign_out');
 
-function sign_in() {
+function sign_in()
+{
     register_rest_route('corona', 'in', array(
         'methods' => 'POST',
         'callback' => 'sign_user_in',
     ));
 }
 
-function sign_user_in($request) {
-    $params = $request->get_params();
+function sign_user_in($request)
+{
+    $new_entry = prepare_data($request, 'in', 'Ein oder mehrere Felder sind nicht richtig ausgefüllt.');
+
+    if ($new_entry instanceof WP_Error) {
+        return $new_entry;
+    }
+
+    global $wpdb;
+    $result = $wpdb->insert($wpdb->base_prefix . 'corona_anwesenheitsliste', $new_entry);
+    if (!$result) {
+        return rest_ensure_response(new WP_Error(500, 'Du konntest nicht eingetragen werden.', ''));
+    }
+
     return rest_ensure_response('');
 }
 
-function sign_out() {
+function sign_out()
+{
     register_rest_route('corona', 'out', array(
         'methods' => 'POST',
         'callback' => 'sign_user_out',
     ));
 }
 
-function sign_user_out($request) {
-    $params = $request->get_params();
+function sign_user_out($request)
+{
+    $entry = prepare_data($request, 'out', 'Die manuelle Austragung hat nicht funktioniert.');
+
+    if ($entry instanceof WP_Error) {
+        return $entry;
+    }
+
+    setlocale(LC_TIME, 'de_DE');
+    date_default_timezone_set('Europe/Berlin');
+
+    $update = array(
+        'datum_bis' => date("d.m.Y"),
+        'uhrzeit_bis' => date('H:i'),
+        'aktiv' => 'nein',
+    );
+
+    global $wpdb;
+    $result = $wpdb->update($wpdb->base_prefix . 'corona_anwesenheitsliste', $update, $entry);
+    if ($result === 0 || !$result) {
+        return rest_ensure_response(new WP_Error(500, $wpdb, ''));
+    }
+
     return rest_ensure_response('');
+}
+
+function prepare_data($request, $type, $message)
+{
+    $params = $request->get_params();
+    setlocale(LC_TIME, 'de_DE');
+    date_default_timezone_set('Europe/Berlin');
+    $data = array(
+        'vorname' => $params['firstname'],
+        'nachname' => $params['name'],
+        'telefon' => $params['tel'],
+        'straße' => $params['street'],
+        'nummer' => $params['number'],
+        'plz' => $params['zip'],
+        'ort' => $params['city'],
+        'aktiv' => 'ja',
+    );
+    if ($type === 'in') {
+        $data = array_merge($data, array(
+            'datum_von' => date("d.m.Y"),
+            'uhrzeit_von' => date('H:i'),
+        ));
+    }
+
+    foreach ($data as $el) {
+        if (is_null($el)) {
+            return rest_ensure_response(new WP_Error(500, $message, ''));
+        }
+    }
+
+    return $data;
 }
 ?>

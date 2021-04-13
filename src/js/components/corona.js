@@ -29,6 +29,10 @@ documentReady(() => {
             if (el[0].startsWith('psv')) {
                 const attr = el[0].replace('psv', '')
                 formData[attr] = el[1]
+            } else {
+                if (el[0] !== 'submitted' && el[1] !== '') {
+                    throw new Error('Honeypot is filled. Everybody hates bots...')
+                }
             }
         })
         const dataAsString = JSON.stringify(formData)
@@ -36,11 +40,12 @@ documentReady(() => {
         signIn(dataAsString)
             .then(async r => {
                 if (!r.ok) {
-                    showError()
+                    showError((await r.json()).message)
                     return
                 }
+
                 const time = new Date().toLocaleTimeString()
-                localStorage.setItem('active', time)
+                localStorage.setItem('active', getTime(time))
                 form.parentNode.replaceChild(showLogout(time), form)
 
                 listenForLogout()
@@ -62,7 +67,7 @@ const listenForLogout = () => {
         signOut(localStorage.getItem('user'))
             .then(async r => {
                 if (!r.ok) {
-                    showError()
+                    showError((await r.json()).message)
                     return
                 }
 

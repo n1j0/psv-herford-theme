@@ -2,70 +2,7 @@
 /*
 Template Name: Corona
 */
-
-/**
- * Check if a honeypot field was filled on the form
- * By checking on the $_REQUEST for the given field names
- * in the $honeypot_fields. The field names passed on this
- * var must be empty on the REQUEST.
- *
- * @param $req {Array} must receive $_REQUEST superglobal
- * @return bool {Boolean} tells if the honeypot catched something
- */
-function honeypot_validate($req)
-{
-    if (!empty($req)) {
-        $honeypot_fields = [
-            "name",
-            "email"
-        ];
-        foreach ($honeypot_fields as $field) {
-            if (isset($req[$field]) && !empty($req[$field])) {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-function sanitize_input($data)
-{
-    return htmlspecialchars(stripslashes(trim($data)));
-}
-
-if (isset($_POST['submitted'])) {
-    if (honeypot_validate($_REQUEST)) {
-        if (trim($_POST['psvfirstname']) === '') {
-            $hasError = true;
-        } else {
-            $firstname = sanitize_input($_POST['psvfirstname']);
-        }
-
-        if (trim($_POST['psvname']) === '') {
-            $hasError = true;
-        } else {
-            $name = sanitize_input($_POST['psvname']);
-        }
-
-        if (trim($_POST['psvtel']) === '') {
-            $hasError = true;
-        } else {
-            $email = sanitize_input($_POST['psvtel']);
-        }
-
-        if (trim($_POST['psvstreet']) !== '') {
-            $street = sanitize_input($_POST['psvstreet']);
-        } else {
-            $street = '';
-        }
-
-        if (!isset($hasError)) {
-
-        }
-    } else {
-        $isSpam = true;
-    }
-} ?>
+?>
 
 <?php get_header(); ?>
 <div class="container">
@@ -80,11 +17,6 @@ if (isset($_POST['submitted'])) {
             <?php do_action('head_theme_after_content'); ?>
         </div>
 
-        <?php if (isset($hasError) || isset($isSpam)) { ?>
-        <p>Das Formular ist leider aktuell nicht erreichbar. Bitte lade die Seite neu und probiere es
-            erneut.
-        <p>
-    <?php } ?>
         <h2 class="h4">
             <?php
             setlocale(LC_TIME, "de_DE");
