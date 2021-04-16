@@ -10,6 +10,22 @@ function sign_in()
     ));
 }
 
+function sign_out()
+{
+    register_rest_route('corona', 'out', array(
+        'methods' => 'POST',
+        'callback' => 'sign_user_out',
+    ));
+}
+
+function get_list()
+{
+    register_rest_route('corona', 'list', array(
+        'methods' => 'GET',
+        'callback' => 'get_list_of_users',
+    ));
+}
+
 function sign_user_in($request)
 {
     $new_entry = prepare_data($request, 'in', 'Ein oder mehrere Felder sind nicht richtig ausgefüllt.');
@@ -25,14 +41,6 @@ function sign_user_in($request)
     }
 
     return rest_ensure_response('');
-}
-
-function sign_out()
-{
-    register_rest_route('corona', 'out', array(
-        'methods' => 'POST',
-        'callback' => 'sign_user_out',
-    ));
 }
 
 function sign_user_out($request)
@@ -91,4 +99,3 @@ function prepare_data($request, $type, $message)
 
     return $data;
 }
-?>

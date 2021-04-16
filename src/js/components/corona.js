@@ -57,7 +57,7 @@ documentReady(() => {
 })
 
 const showLogout = (time) => {
-    return htmlToElement(`<div><p>Angemeldet seit <strong>${getTime(time)}</strong> Uhr.</p><button type="submit" id="coronaSignOut" class="btn btn-primary">Abmelden</button></div>`)
+    return htmlToElement(`<div><p>Angemeldet seit <strong>${time}</strong> Uhr.</p><button type="submit" id="coronaSignOut" class="btn btn-primary">Abmelden</button></div>`)
 }
 
 const listenForLogout = () => {
