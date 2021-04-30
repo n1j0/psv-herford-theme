@@ -23,6 +23,9 @@ function get_list()
     register_rest_route('corona', 'list', array(
         'methods' => 'GET',
         'callback' => 'get_list_of_users',
+        'permission_callback' => function () {
+            return current_user_can( 'export' );
+        }
     ));
 }
 
@@ -75,13 +78,13 @@ function prepare_data($request, $type, $message)
     setlocale(LC_TIME, 'de_DE');
     date_default_timezone_set('Europe/Berlin');
     $data = array(
-        'vorname' => $params['firstname'],
-        'nachname' => $params['name'],
-        'telefon' => $params['tel'],
-        'straße' => $params['street'],
-        'nummer' => $params['number'],
-        'plz' => $params['zip'],
-        'ort' => $params['city'],
+        'vorname' => sanitize_text_field($params['firstname']),
+        'nachname' => sanitize_text_field($params['name']),
+        'telefon' => preg_replace(array('/ /','/\//'), array('',''), sanitize_text_field($params['tel'])),
+        'straße' => sanitize_text_field($params['street']),
+        'nummer' => sanitize_text_field($params['number']),
+        'plz' => sanitize_text_field($params['zip']),
+        'ort' => sanitize_text_field($params['city']),
         'aktiv' => 'ja',
     );
     if ($type === 'in') {

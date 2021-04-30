@@ -6,20 +6,32 @@ documentReady(() => {
     const active = localStorage.getItem('active')
 
     if (active) {
-        form?.parentNode.replaceChild(showLogout(active), form)
+        const oldDate = new Date(localStorage.getItem('time')).getTime()
+        const currentDate = new Date().getTime()
+        if (currentDate-oldDate >= 6*60*60*1000) {
+            logout()
+            fillOutForm(user)
+            showWarning()
+            formListener(form)
+            return
+        }
 
+        form?.parentNode.replaceChild(showLogout(active), form)
         listenForLogout()
     } else if (form && user) {
-        const userObj = JSON.parse(user)
-        for (const [ key, value ] of Object.entries(userObj)) {
-            document.getElementById(`psv${key}`).value = value
-        }
+        fillOutForm(user)
     }
 
+    formListener(form)
+})
+
+const formListener = (form) => {
     form?.addEventListener('submit', event => {
-        removeError()
         event.preventDefault()
         event.stopPropagation()
+        console.log('test')
+        removeError()
+        removeWarning()
         if (!form.checkValidity()) {
             return
         }
@@ -46,6 +58,7 @@ documentReady(() => {
 
                 const time = new Date().toLocaleTimeString()
                 localStorage.setItem('active', getTime(time))
+                localStorage.setItem('time', new Date().toISOString())
                 form.parentNode.replaceChild(showLogout(time), form)
 
                 listenForLogout()
@@ -54,7 +67,14 @@ documentReady(() => {
                 showError(e)
             })
     }, false)
-})
+}
+
+const fillOutForm = (user) => {
+    const userObj = JSON.parse(user)
+    for (const [ key, value ] of Object.entries(userObj)) {
+        document.getElementById(`psv${key}`).value = value
+    }
+}
 
 const showLogout = (time) => {
     return htmlToElement(`<div><p>Angemeldet seit <strong>${time}</strong> Uhr.</p><button type="submit" id="coronaSignOut" class="btn btn-primary">Abmelden</button></div>`)
@@ -64,20 +84,29 @@ const listenForLogout = () => {
     const logoutBtn = document.getElementById('coronaSignOut')
     logoutBtn?.addEventListener('click', () => {
         removeError()
-        signOut(localStorage.getItem('user'))
-            .then(async r => {
-                if (!r.ok) {
-                    showError((await r.json()).message)
-                    return
-                }
-
-                localStorage.removeItem('active')
-                logoutBtn.parentNode.parentNode.replaceChild(showSuccessfulLogout(), logoutBtn.parentNode)
-            })
-            .catch(e => {
-                showError(e)
-            })
+        logout(() => {
+            logoutBtn.parentNode.parentNode.replaceChild(showSuccessfulLogout(), logoutBtn.parentNode)
+        })
     })
+}
+
+const logout = (replaceFunction = null) => {
+    signOut(localStorage.getItem('user'))
+        .then(async r => {
+            if (!r.ok) {
+                showError((await r.json()).message)
+                return
+            }
+
+            localStorage.removeItem('active')
+            localStorage.removeItem('time')
+            if (replaceFunction) {
+                replaceFunction()
+            }
+        })
+        .catch(e => {
+            showError(e)
+        })
 }
 
 const signIn = (data) => {
@@ -105,8 +134,18 @@ const showError = (error = '') => {
     headline[0].parentNode.append(htmlToElement(`<div class="alert alert-danger mt-3 mb-4" role="alert"><p class="mb-0">Es ist ein Fehler aufgetreten. ${error} Bitte versuche es erneut.</p></div>`))
 }
 
+const showWarning = () => {
+    const headline = document.getElementsByTagName('h1')
+    headline[0].parentNode.prepend(htmlToElement(`<div class="alert alert-warning mt-3 mb-4" role="alert"><p class="mb-0">Du wurdest automatisch abgemeldet. Bitte denk beim nächsten mal daran dich abzumelden.</p></div>`))
+}
+
 const removeError = () => {
     const el = document.querySelector('div.alert.alert-danger')
+    el?.parentNode.removeChild(el)
+}
+
+const removeWarning = () => {
+    const el = document.querySelector('div.alert.alert-warning')
     el?.parentNode.removeChild(el)
 }
 
