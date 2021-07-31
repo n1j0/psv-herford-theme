@@ -66,7 +66,6 @@ if (isset($_POST['submitted'])) {
 			$hasError = true;
 		} else {
 			$message = sanitize_input($_POST['psvmessage']);
-			echo $message;
 		}
 
 		if (!isset($hasError)) {
