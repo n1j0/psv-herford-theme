@@ -71,8 +71,6 @@ if (!function_exists('psv_herford_setup')) :
                 'flex-height' => true,
             )
         );
-
-        require_once 'corona.php';
     }
 endif;
 
