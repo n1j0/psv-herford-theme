@@ -1,7 +1,7 @@
 <nav id="site-navigation" class="navbar sticky-top navbar-expand-lg navbar-dark">
 	<div class="container">
 		<a class="navbar-brand" href="/">PSV Badminton</a>
-		<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<?php
